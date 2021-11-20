@@ -12,25 +12,29 @@ app.static_url_path = "/static"
 def index():
   thoughts = flask.request.form.get("thoughts")
 
-
-
   strthoughts = str(thoughts)
 
     
   entry = strthoughts
-  if entry != "None":
+  if entry != "None" and len(entry) != 0:
     filename = 'posts.json'
 
       # 1. Read file contents
     with open(filename, "r") as file:
       data = json.load(file)
-      data['thoughts'].insert(0, entry)
+      #This code checks if the post inputted before and after is not the same. If it's the same, it will not get inserted.
+      lenofall = len(data['thoughts'])
+
+      if lenofall > 0: #0 cause 1 will look for second input.
+        if data['thoughts'][0] != entry:
+            data['thoughts'].insert(0, entry)
+      else:
+        data['thoughts'].insert(0, entry)
 
       # 3. Write json file
-    with open(filename, "w") as file:
-      json.dump(data, file)
+      with open(filename, "w") as file:
+        json.dump(data, file)
   
-
 
   return flask.render_template('index.html', thoughts=thoughts)
 

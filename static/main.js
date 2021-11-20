@@ -7,10 +7,8 @@ async function load() {
     } catch(e) {
         console.log('error');
     }
-    
-  name = obj.thoughts[0];
-
-  console.log(name)
+  
+  document.getElementById("post1").innerHTML = obj.thoughts[0];
 }
 
 load();
