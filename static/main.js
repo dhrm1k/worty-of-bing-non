@@ -7,8 +7,20 @@ async function load() {
     } catch(e) {
         console.log('error');
     }
-  
-  document.getElementById("post1").innerHTML = obj.thoughts[0];
+  a = obj.thoughts.length;
+  //document.getElementById("post1").innerHTML =  a; //obj.thoughts[0];
+
+  let text = "";
+
+  for (let i = 0; i < a; i++) {
+  text += "<article><h3>" + obj.thoughts[i] + "</h3></article>";
 }
 
+  document.getElementById("posts").innerHTML = text;
+
+
+  }
+
+
 load();
+
