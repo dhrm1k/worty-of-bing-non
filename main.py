@@ -2,6 +2,8 @@ import flask
 from replit import db, web
 import json
 import requests
+from flask import Flask, redirect, url_for, request, send_from_directory
+import os
 
 app = flask.Flask(__name__)
 app.static_url_path = "/static"
@@ -42,6 +44,12 @@ def index():
 @app.route("/api/feed")
 def data():
   return flask.send_from_directory('', 'posts.json')
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 
 web.run(app)
 
